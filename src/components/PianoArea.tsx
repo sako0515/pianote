@@ -1,6 +1,6 @@
 export default function PianoArea() {
   return (
-    <div className="bg-[#1c493f] shadow-sm rounded-2xl px-6 py-4 w-180 mx-auto mt-6">
+    <div className="bg-[#1c493f] rounded-2xl px-6 py-4 w-180 mx-auto mt-6">
       <p className="text-sm text-gray-500">MY PIANO</p>
       <h1 className="text-white font-bold text-4xl mt-4">Lv .18</h1>
       <p className="text-white font-bold mt-2">響きのピアノ</p>
