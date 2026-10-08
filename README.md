@@ -1,3 +1,48 @@
+# Pianote 🎹🌱
+
+ピアノの練習を記録し、日々の積み重ねを可視化する練習記録アプリです。
+
+「練習した分だけ、自分のピアノと庭が成長していく」をコンセプトに、
+ピアノの練習を継続することが楽しくなるようなアプリを目指しています。
+
+現在は、React / TypeScriptを使ったフロントエンド開発を中心に、
+基本的な状態管理やデータ保存の仕組みを学びながら開発しています。
+
+## ✨ Features
+
+現在実装している機能
+
+- 練習記録の追加
+  - 曲名
+  - 作曲家
+  - 練習時間
+- 練習記録の一覧表示
+- 練習記録の削除
+- localStorageへの練習記録の保存
+- ページを再読み込みした際の練習記録の復元
+- ピアノのステータス表示
+
+## 🛠️ Tech Stack
+
+- React
+- TypeScript
+- Vite
+- Tailwind CSS
+- localStorage
+- Git / GitHub
+- Vercel
+
+## 📁 Project Structure
+
+```text
+src/
+├── components/
+│   ├── PianoArea.tsx
+│   └── PianoForm.tsx
+├── App.tsx
+├── App.css
+└── main.tsx
+
 # React + TypeScript + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
