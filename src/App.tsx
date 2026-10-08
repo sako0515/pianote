@@ -2,7 +2,7 @@ import "./App.css";
 import { BellDot } from "lucide-react";
 import PianoArea from "./components/PianoArea";
 import PianoForm from "./components/PianoForm";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 type PracticeLog = {
   id: number;
@@ -12,36 +12,54 @@ type PracticeLog = {
 };
 
 function App() {
-  const [logs, setLogs] = useState<PracticeLog[]>([]);
+  const [logs, setLogs] = useState<PracticeLog[]>(() => {
+    const savedLogs = localStorage.getItem("logs");
+
+    if (savedLogs) {
+      return JSON.parse(savedLogs);
+    }
+    return [];
+  });
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [practice, setPractice] = useState(0);
+
+  useEffect(() => {
+    localStorage.setItem("logs", JSON.stringify(logs));
+  }, [logs]);
+
+  const handleDelete = (id: number) => {
+    if (!confirm("Sure?")) return;
+    const newLogs = logs.filter((log) => {
+      return log.id !== id;
+    });
+    setLogs(newLogs);
+  };
 
   const handlePracticeSubmit = (
     title: string,
     author: string,
     practice: number,
   ) => {
-    const newLogs = [...logs];
-    newLogs.push({
-      id: Date.now(),
-      title: title,
-      author: author,
-      practice: practice,
-    });
-    setLogs(newLogs);
+    setLogs([
+      ...logs,
+      {
+        id: Date.now(),
+        title: title,
+        author: author,
+        practice: practice,
+      },
+    ]);
   };
 
   return (
     <div className="min-h-screen bg-[#f4f1e8]">
-      <header className="flex items-center justify-between px-6 py-4">
-        <div className="flex flex-col">
-          <span className="text-sm text-gray-600">TUESDAY, MAY 21</span>
-          <span className="text-xl font-medium">おかえりなさい、Marie</span>
-        </div>
-        <button className="cursor-pointer bg-white rounded-4xl">
+      <header className="items-center px-6 py-4">
+        <span className="text-sm text-gray-600">TUESDAY, MAY 21</span>
+        <button className="float-right shadow-sm cursor-pointer bg-white rounded-4xl duration-300 hover:bg-gray-200 active:translate-y-0.5">
           <BellDot className="m-3" />
         </button>
+        <h2 className="text-xl font-medium">おかえりなさい、User</h2>
       </header>
       <PianoArea />
       <PianoForm
@@ -66,6 +84,12 @@ function App() {
                 {log.practice}分
               </span>
               <p className="text-gray-400">{log.author}</p>
+              <button
+                className="bg-red-400 p-2 rounded-2xl cursor-pointer hover:opacity-80 active:translate-y-0.5 duration-300"
+                onClick={() => handleDelete(log.id)}
+              >
+                削除
+              </button>
             </li>
           ))}
         </ul>
