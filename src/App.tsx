@@ -13,10 +13,10 @@ type PracticeLog = {
 
 function App() {
   const [logs, setLogs] = useState<PracticeLog[]>(() => {
-    const savedLogs = localStorage.getItem("logs");
+    const storedLogs = localStorage.getItem("logs"); // return string | null;
 
-    if (savedLogs) {
-      return JSON.parse(savedLogs);
+    if (storedLogs) {
+      return JSON.parse(storedLogs);
     }
     return [];
   });
