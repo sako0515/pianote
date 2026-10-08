@@ -11,6 +11,7 @@ type PianoFormProps = {
 export default function PianoForm(props: PianoFormProps) {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (props.title === "" || props.author === "") return;
     props.onPracticeSubmit(props.title, props.author, props.practice);
     props.setTitle("");
     props.setAuthor("");
@@ -42,7 +43,8 @@ export default function PianoForm(props: PianoFormProps) {
       </label>
       <label>
         <input
-          type="text"
+          type="number"
+          min="1"
           placeholder="練習時間"
           className="mt-4 block border border-gray-400 rounded-md p-3 shadow-sm mr-2 w-120"
           value={props.practice}
