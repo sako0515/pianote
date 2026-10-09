@@ -103,7 +103,7 @@ function App() {
         setPractice={setPractice}
         onPracticeSubmit={handlePracticeSubmit}
       />
-      <main className="px-6 py-4  bg-white rounded-2xl w-180 mx-auto mt-6 shadow-sm">
+      <main className="px-6 py-4  bg-white rounded-2xl w-full max-w-2xl mx-auto mt-6 shadow-sm">
         <div className="flex flex-col mb-4">
           <span className="text-sm text-gray-600">TODAY'S SESSION</span>
           <span className="text-xl font-medium">今日の練習</span>

@@ -32,14 +32,14 @@ export default function PianoForm({
 
   return (
     <form
-      className="px-6 py-4  bg-white rounded-2xl w-180 mx-auto mt-6 shadow-sm"
+      className="px-6 py-4  bg-white rounded-2xl w-full max-w-2xl mx-auto mt-6 shadow-sm"
       onSubmit={handleSubmit}
     >
       <label>
         <input
           type="text"
           placeholder="曲名"
-          className="block border border-gray-400 rounded-md p-3 shadow-sm mr-2 w-120"
+          className="block border border-gray-400 rounded-md p-3 shadow-sm mr-2 w-full"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
         />
@@ -48,7 +48,7 @@ export default function PianoForm({
         <input
           type="text"
           placeholder="作曲家"
-          className="mt-4 block border border-gray-400 rounded-md p-3 shadow-sm mr-2 w-120"
+          className="mt-4 block border border-gray-400 rounded-md p-3 shadow-sm mr-2 w-full"
           value={author}
           onChange={(e) => setAuthor(e.target.value)}
         />
@@ -58,7 +58,7 @@ export default function PianoForm({
           type="number"
           min="1"
           placeholder="練習時間"
-          className="mt-4 block border border-gray-400 rounded-md p-3 shadow-sm mr-2 w-120"
+          className="mt-4 block border border-gray-400 rounded-md p-3 shadow-sm mr-2 w-full"
           value={practice}
           onChange={(e) => setPractice(Number(e.target.value))}
         />
