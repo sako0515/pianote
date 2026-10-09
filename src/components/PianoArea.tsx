@@ -29,7 +29,7 @@ export default function PianoArea({
       <div>
         <div className="flex justify-between items-center">
           <span className="text-white font-bold">次のレベルまで</span>
-          <span className="text-white font-bold">{progress} %</span>
+          <span className="text-white font-bold">{Math.floor(progress)} %</span>
         </div>
         <div className="mt-2 h-3 w-full overflow-hidden rounded-full bg-white/20">
           <div

@@ -111,18 +111,19 @@ function App() {
         <ul>
           {todayLogs.map((log) => (
             <li key={log.id} className="border-t border-gray-400 py-4">
-              <span className="font-medium text-xl">{log.title}</span>
-              <span className="float-right font-medium pt-2 text-3xl">
-                {log.practice}分
-              </span>
-              <p className="text-gray-400">{log.author}</p>
-              <p className="text-gray-400">{log.date}</p>
-              <button
-                className="bg-red-400 p-2 rounded-2xl cursor-pointer hover:opacity-80 active:translate-y-0.5 duration-300"
-                onClick={() => handleDelete(log.id)}
-              >
-                削除
-              </button>
+              <div className="flex justify-between">
+                <span className="font-medium text-2xl">{log.title}</span>
+                <span className="font-medium text-2xl">{log.practice}分</span>
+              </div>
+              <div className="flex justify-between mt-2">
+                <p className="text-gray-400 text-sm">{log.author}</p>
+                <button
+                  className="bg-red-400 p-2 text-xl rounded-2xl cursor-pointer hover:opacity-80 active:translate-y-0.5 duration-300"
+                  onClick={() => handleDelete(log.id)}
+                >
+                  削除
+                </button>
+              </div>
             </li>
           ))}
         </ul>
