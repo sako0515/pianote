@@ -9,6 +9,7 @@ type PracticeLog = {
   title: string;
   author: string;
   practice: number;
+  date: string;
 };
 
 function App() {
@@ -23,6 +24,18 @@ function App() {
   const [title, setTitle] = useState("");
   const [author, setAuthor] = useState("");
   const [practice, setPractice] = useState(0);
+
+  const getToday = (): string => {
+    const now = new Date();
+    const year = now.getFullYear();
+    const month = String(now.getMonth() + 1).padStart(2, "0");
+    const day = String(now.getDate()).padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
+  };
+
+  const today: string = getToday();
+  const todayLogs = logs.filter((log) => log.date === today);
 
   useEffect(() => {
     localStorage.setItem("logs", JSON.stringify(logs));
@@ -48,6 +61,7 @@ function App() {
         title: title,
         author: author,
         practice: practice,
+        date: getToday(),
       },
     ]);
   };
@@ -77,13 +91,14 @@ function App() {
           <span className="text-xl font-medium">今日の練習</span>
         </div>
         <ul>
-          {logs.map((log) => (
+          {todayLogs.map((log) => (
             <li key={log.id} className="border-t border-gray-400 py-4">
               <span className="font-medium text-xl">{log.title}</span>
               <span className="float-right font-medium pt-2 text-3xl">
                 {log.practice}分
               </span>
               <p className="text-gray-400">{log.author}</p>
+              <p className="text-gray-400">{log.date}</p>
               <button
                 className="bg-red-400 p-2 rounded-2xl cursor-pointer hover:opacity-80 active:translate-y-0.5 duration-300"
                 onClick={() => handleDelete(log.id)}
