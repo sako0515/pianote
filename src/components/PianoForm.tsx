@@ -11,8 +11,12 @@ type PianoFormProps = {
 export default function PianoForm(props: PianoFormProps) {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (props.title === "" || props.author === "") return;
-    props.onPracticeSubmit(props.title, props.author, props.practice);
+
+    const trimedTitle = props.title.trim();
+    const trimedAuthor = props.author.trim();
+
+    if (trimedTitle === "" || trimedAuthor === "") return;
+    props.onPracticeSubmit(trimedTitle, trimedAuthor, props.practice);
     props.setTitle("");
     props.setAuthor("");
     props.setPractice(0);
