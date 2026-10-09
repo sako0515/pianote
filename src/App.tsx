@@ -37,6 +37,19 @@ function App() {
   const today: string = getToday();
   const todayLogs = logs.filter((log) => log.date === today);
 
+  const todayTotal = todayLogs.reduce((total, log) => {
+    return total + log.practice;
+  }, 0);
+
+  const totalExp = logs.reduce((total, log) => {
+    return total + log.practice;
+  }, 0);
+
+  const expPerLevel = 100;
+  const level = Math.floor(totalExp / expPerLevel) + 1;
+  const currentLevelExp = totalExp % expPerLevel;
+  const expProgress = (currentLevelExp / expPerLevel) * 100;
+
   useEffect(() => {
     localStorage.setItem("logs", JSON.stringify(logs));
   }, [logs]);
@@ -69,13 +82,18 @@ function App() {
   return (
     <div className="min-h-screen bg-[#f4f1e8]">
       <header className="items-center px-6 py-4">
-        <span className="text-sm text-gray-600">TUESDAY, MAY 21</span>
+        <span className="text-sm text-gray-600">{today}</span>
         <button className="float-right shadow-sm cursor-pointer bg-white rounded-4xl duration-300 hover:bg-gray-200 active:translate-y-0.5">
           <BellDot className="m-3" />
         </button>
         <h2 className="text-xl font-medium">おかえりなさい、User</h2>
       </header>
-      <PianoArea />
+      <PianoArea
+        maxExp={expPerLevel}
+        level={level}
+        currentExp={currentLevelExp}
+        progress={expProgress}
+      />
       <PianoForm
         title={title}
         setTitle={setTitle}
@@ -108,6 +126,14 @@ function App() {
             </li>
           ))}
         </ul>
+        <div className="bg-[#edf0e7] rounded-2xl p-4 shadow-sm">
+          <div className="float-right border-l border-gray-400 mr-4 pl-4">
+            <p className="text-gray-400 text-sm">合計練習時間</p>
+            <p className="text-2xl font-bold">{todayTotal}分</p>
+          </div>
+          <p className="text-gray-400 text-sm">今日の獲得経験値</p>
+          <span className="text-2xl font-bold">+{todayTotal}EXP</span>
+        </div>
       </main>
     </div>
   );

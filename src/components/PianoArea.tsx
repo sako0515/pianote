@@ -1,8 +1,20 @@
-export default function PianoArea() {
+type PianoAreaProps = {
+  maxExp: number;
+  level: number;
+  currentExp: number;
+  progress: number;
+};
+
+export default function PianoArea({
+  maxExp,
+  level,
+  currentExp,
+  progress,
+}: PianoAreaProps) {
   return (
     <div className="bg-[#1c493f] rounded-2xl px-6 py-4 w-180 mx-auto mt-6">
       <p className="text-sm text-gray-500">MY PIANO</p>
-      <h1 className="text-white font-bold text-4xl mt-4">Lv .18</h1>
+      <h1 className="text-white font-bold text-4xl mt-4">Lv .{level}</h1>
       <p className="text-white font-bold mt-2">響きのピアノ</p>
       <svg viewBox="0 0 120 92" className="w-100 mx-auto">
         <rect x="8" y="12" width="104" height="68" rx="6" fill="#f8f5ea" />
@@ -14,8 +26,22 @@ export default function PianoArea() {
           <rect x={x} y="12" width="11" height="43" fill="#173f38" />
         ))}
       </svg>
-      <span className="text-white font-bold mt-2">次のレベルまで</span>
-      <span className="text-gray-500 font-bold mt-2 float-right">82 %</span>
+      <div>
+        <div className="flex justify-between items-center">
+          <span className="text-white font-bold">次のレベルまで</span>
+          <span className="text-white font-bold">{progress} %</span>
+        </div>
+        <div className="mt-2 h-3 w-full overflow-hidden rounded-full bg-white/20">
+          <div
+            className="h-full rounded-full bg-[#a9c69a] transition-all duration-500"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
+        <div className="mt-2 flex justify-between">
+          <span className="text-gray-300 text-sm">{currentExp} EXP</span>
+          <span className="text-gray-300 text-sm">{maxExp} EXP</span>
+        </div>
+      </div>
     </div>
   );
 }

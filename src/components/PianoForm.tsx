@@ -8,18 +8,26 @@ type PianoFormProps = {
   onPracticeSubmit: (title: string, author: string, practice: number) => void;
 };
 
-export default function PianoForm(props: PianoFormProps) {
+export default function PianoForm({
+  title,
+  setTitle,
+  author,
+  setAuthor,
+  practice,
+  setPractice,
+  onPracticeSubmit,
+}: PianoFormProps) {
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const trimedTitle = props.title.trim();
-    const trimedAuthor = props.author.trim();
+    const trimedTitle = title.trim();
+    const trimedAuthor = author.trim();
 
     if (trimedTitle === "" || trimedAuthor === "") return;
-    props.onPracticeSubmit(trimedTitle, trimedAuthor, props.practice);
-    props.setTitle("");
-    props.setAuthor("");
-    props.setPractice(0);
+    onPracticeSubmit(trimedTitle, trimedAuthor, practice);
+    setTitle("");
+    setAuthor("");
+    setPractice(0);
   };
 
   return (
@@ -32,8 +40,8 @@ export default function PianoForm(props: PianoFormProps) {
           type="text"
           placeholder="曲名"
           className="block border border-gray-400 rounded-md p-3 shadow-sm mr-2 w-120"
-          value={props.title}
-          onChange={(e) => props.setTitle(e.target.value)}
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
         />
       </label>
       <label>
@@ -41,8 +49,8 @@ export default function PianoForm(props: PianoFormProps) {
           type="text"
           placeholder="作曲家"
           className="mt-4 block border border-gray-400 rounded-md p-3 shadow-sm mr-2 w-120"
-          value={props.author}
-          onChange={(e) => props.setAuthor(e.target.value)}
+          value={author}
+          onChange={(e) => setAuthor(e.target.value)}
         />
       </label>
       <label>
@@ -51,8 +59,8 @@ export default function PianoForm(props: PianoFormProps) {
           min="1"
           placeholder="練習時間"
           className="mt-4 block border border-gray-400 rounded-md p-3 shadow-sm mr-2 w-120"
-          value={props.practice}
-          onChange={(e) => props.setPractice(Number(e.target.value))}
+          value={practice}
+          onChange={(e) => setPractice(Number(e.target.value))}
         />
       </label>
       <button className="mt-4 border border-gray-300 p-2 rounded-md shadow-sm cursor-pointer duration-300 hover:bg-gray-200 active:translate-y-0.5">
