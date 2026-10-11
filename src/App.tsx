@@ -3,6 +3,8 @@ import { BellDot } from "lucide-react";
 import PianoArea from "./components/PianoArea";
 import PianoForm from "./components/PianoForm";
 import { useEffect, useState } from "react";
+import { toDateString } from "./lib/date";
+import { calcLevelInfo, sumMinutes } from "./lib/exp";
 
 type PracticeLog = {
   id: number;
@@ -25,30 +27,35 @@ function App() {
   const [author, setAuthor] = useState("");
   const [practice, setPractice] = useState(0);
 
-  const getToday = (): string => {
-    const now = new Date();
-    const year = now.getFullYear();
-    const month = String(now.getMonth() + 1).padStart(2, "0");
-    const day = String(now.getDate()).padStart(2, "0");
+  // const getToday = (): string => {
+  //   const now = new Date();
+  //   const year = now.getFullYear();
+  //   const month = String(now.getMonth() + 1).padStart(2, "0");
+  //   const day = String(now.getDate()).padStart(2, "0");
 
-    return `${year}-${month}-${day}`;
-  };
+  //   return `${year}-${month}-${day}`;
+  // };
 
-  const today: string = getToday();
+  // const today: string = getToday();
+  // const todayLogs = logs.filter((log) => log.date === today);
+
+  // const todayTotal = todayLogs.reduce((total, log) => {
+  //   return total + log.practice;
+  // }, 0);
+
+  // const totalExp = logs.reduce((total, log) => {
+  //   return total + log.practice;
+  // }, 0);
+
+  // const expPerLevel = 100;
+  // const level = Math.floor(totalExp / expPerLevel) + 1;
+  // const currentLevelExp = totalExp % expPerLevel;
+  // const expProgress = (currentLevelExp / expPerLevel) * 100;
+
+  const today = toDateString();
   const todayLogs = logs.filter((log) => log.date === today);
-
-  const todayTotal = todayLogs.reduce((total, log) => {
-    return total + log.practice;
-  }, 0);
-
-  const totalExp = logs.reduce((total, log) => {
-    return total + log.practice;
-  }, 0);
-
-  const expPerLevel = 100;
-  const level = Math.floor(totalExp / expPerLevel) + 1;
-  const currentLevelExp = totalExp % expPerLevel;
-  const expProgress = (currentLevelExp / expPerLevel) * 100;
+  const totayTotal = sumMinutes(todayLogs);
+  const levelInfo = calcLevelInfo(sumMinutes(logs));
 
   useEffect(() => {
     localStorage.setItem("logs", JSON.stringify(logs));
@@ -74,7 +81,7 @@ function App() {
         title: title,
         author: author,
         practice: practice,
-        date: getToday(),
+        date: toDateString(),
       },
     ]);
   };
@@ -89,10 +96,7 @@ function App() {
         <h2 className="text-xl font-medium">おかえりなさい、User</h2>
       </header>
       <PianoArea
-        maxExp={expPerLevel}
-        level={level}
-        currentExp={currentLevelExp}
-        progress={expProgress}
+        {...levelInfo}
       />
       <PianoForm
         title={title}
@@ -130,10 +134,10 @@ function App() {
         <div className="bg-[#edf0e7] rounded-2xl p-4 shadow-sm">
           <div className="float-right border-l border-gray-400 mr-4 pl-4">
             <p className="text-gray-400 text-sm">合計練習時間</p>
-            <p className="text-2xl font-bold">{todayTotal}分</p>
+            <p className="text-2xl font-bold">{/*{todayTotal}分*/}</p>
           </div>
           <p className="text-gray-400 text-sm">今日の獲得経験値</p>
-          <span className="text-2xl font-bold">+{todayTotal}EXP</span>
+          <span className="text-2xl font-bold">{/*+{todayTotal}EXP*/}</span>
         </div>
       </main>
     </div>
