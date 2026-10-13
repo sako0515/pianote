@@ -1,12 +1,12 @@
 export const EXP_PER_LEVEL = 100;
 
-export const calcLevelInfo = (totalExp: number) => {
+export const calclevelInfo = (totalExp: number) => {
   const currentExp = totalExp % EXP_PER_LEVEL;
   return {
-    level: Math.floor(totalExp / EXP_PER_LEVEL) + 1,
+    level: Math.floor(totalExp / EXP_PER_LEVEL),
     currentExp,
     maxExp: EXP_PER_LEVEL,
-    progress: (currentExp / totalExp) * 100,
+    progress: (currentExp / EXP_PER_LEVEL) * 100,
   };
 };
 

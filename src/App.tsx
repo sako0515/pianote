@@ -3,9 +3,9 @@ import { BellDot } from "lucide-react";
 import PianoArea from "./components/PianoArea";
 import PianoForm from "./components/PianoForm";
 import { useEffect, useState } from "react";
-import { toDateString } from "./lib/date";
-import { calcLevelInfo, sumMinutes } from "./lib/exp";
 import type { PracticeLog } from "./schemas/practice";
+import { toDateString } from "./lib/date";
+import { calclevelInfo, sumMinutes } from "./lib/exp";
 
 function App() {
   const [logs, setLogs] = useState<PracticeLog[]>(() => {
@@ -23,7 +23,7 @@ function App() {
   const today = toDateString();
   const todayLogs = logs.filter((log) => log.date === today);
   const todayTotal = sumMinutes(todayLogs);
-  const levelInfo = calcLevelInfo(sumMinutes(logs));
+  const levelInfo = calclevelInfo(sumMinutes(logs));
 
   useEffect(() => {
     localStorage.setItem("logs", JSON.stringify(logs));
@@ -63,9 +63,7 @@ function App() {
         </button>
         <h2 className="text-xl font-medium">おかえりなさい、User</h2>
       </header>
-      <PianoArea
-        {...levelInfo}
-      />
+      <PianoArea {...levelInfo} />
       <PianoForm
         title={title}
         setTitle={setTitle}
