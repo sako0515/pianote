@@ -3,7 +3,7 @@ import { calclevelInfo } from "./exp";
 
 describe("calclevelInfo", () => {
   it("0EXPはLv.1で進歩0%", () => {
-    expect(calclevelInfo(1)).toMatchObject({
+    expect(calclevelInfo(0)).toMatchObject({
       level: 1,
       currentExp: 0,
       progress: 0,

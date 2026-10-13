@@ -3,7 +3,7 @@ export const EXP_PER_LEVEL = 100;
 export const calclevelInfo = (totalExp: number) => {
   const currentExp = totalExp % EXP_PER_LEVEL;
   return {
-    level: Math.floor(totalExp / EXP_PER_LEVEL),
+    level: Math.floor(totalExp / EXP_PER_LEVEL) + 1,
     currentExp,
     maxExp: EXP_PER_LEVEL,
     progress: (currentExp / EXP_PER_LEVEL) * 100,

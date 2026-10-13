@@ -2,56 +2,21 @@ import "./App.css";
 import { BellDot } from "lucide-react";
 import PianoArea from "./components/PianoArea";
 import PianoForm from "./components/PianoForm";
-import { useEffect, useState } from "react";
-import type { PracticeLog } from "./schemas/practice";
 import { toDateString } from "./lib/date";
 import { calclevelInfo, sumMinutes } from "./lib/exp";
+import { usePracticeLogs } from "./hooks/usePracticeLogs";
 
 function App() {
-  const [logs, setLogs] = useState<PracticeLog[]>(() => {
-    const storedLogs = localStorage.getItem("logs"); // return string | null;
-
-    if (storedLogs) {
-      return JSON.parse(storedLogs);
-    }
-    return [];
-  });
-  const [title, setTitle] = useState("");
-  const [author, setAuthor] = useState("");
-  const [practice, setPractice] = useState(0);
+  const { logs, addLog, removeLog } = usePracticeLogs();
 
   const today = toDateString();
   const todayLogs = logs.filter((log) => log.date === today);
   const todayTotal = sumMinutes(todayLogs);
   const levelInfo = calclevelInfo(sumMinutes(logs));
 
-  useEffect(() => {
-    localStorage.setItem("logs", JSON.stringify(logs));
-  }, [logs]);
-
   const handleDelete = (id: string) => {
-    if (!confirm("Sure?")) return;
-    const newLogs = logs.filter((log) => {
-      return log.id !== id;
-    });
-    setLogs(newLogs);
-  };
-
-  const handlePracticeSubmit = (
-    title: string,
-    author: string,
-    practice: number,
-  ) => {
-    setLogs([
-      ...logs,
-      {
-        id: crypto.randomUUID(),
-        title: title,
-        author: author,
-        practice: practice,
-        date: toDateString(),
-      },
-    ]);
+    if (!confirm("この記録を削除しますか？")) return;
+    removeLog(id);
   };
 
   return (
@@ -65,13 +30,7 @@ function App() {
       </header>
       <PianoArea {...levelInfo} />
       <PianoForm
-        title={title}
-        setTitle={setTitle}
-        author={author}
-        setAuthor={setAuthor}
-        practice={practice}
-        setPractice={setPractice}
-        onPracticeSubmit={handlePracticeSubmit}
+        onSubmit={addLog}
       />
       <main className="px-6 py-4  bg-white rounded-2xl w-full max-w-2xl mx-auto mt-6 shadow-sm">
         <div className="flex flex-col mb-4">

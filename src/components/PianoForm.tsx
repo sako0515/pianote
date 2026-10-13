@@ -1,33 +1,33 @@
+import { useState, type FormEvent } from "react";
+
 type PianoFormProps = {
-  title: string;
-  setTitle: (title: string) => void;
-  author: string;
-  setAuthor: (author: string) => void;
-  practice: number;
-  setPractice: (practice: number) => void;
-  onPracticeSubmit: (title: string, author: string, practice: number) => void;
+  onSubmit: (input: {
+    title: string;
+    author: string;
+    practice: number;
+  }) => void;
 };
 
-export default function PianoForm({
-  title,
-  setTitle,
-  author,
-  setAuthor,
-  practice,
-  setPractice,
-  onPracticeSubmit,
-}: PianoFormProps) {
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+export default function PianoForm({ onSubmit }: PianoFormProps) {
+  const [title, setTitle] = useState("");
+  const [author, setAuthor] = useState("");
+  const [practice, setPractice] = useState("");
+
+  const minutes = Number(practice);
+  const isValid =
+    title.trim() !== "" &&
+    author.trim() !== "" &&
+    Number.isInteger(minutes) &&
+    minutes > 0;
+
+  const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const trimedTitle = title.trim();
-    const trimedAuthor = author.trim();
-
-    if (trimedTitle === "" || trimedAuthor === "") return;
-    onPracticeSubmit(trimedTitle, trimedAuthor, practice);
+    if (!isValid) return;
+    onSubmit({ title: title.trim(), author: author.trim(), practice: minutes });
     setTitle("");
     setAuthor("");
-    setPractice(0);
+    setPractice("");
   };
 
   return (
@@ -60,7 +60,7 @@ export default function PianoForm({
           placeholder="練習時間"
           className="mt-4 block border border-gray-400 rounded-md p-3 shadow-sm mr-2 w-full"
           value={practice}
-          onChange={(e) => setPractice(Number(e.target.value))}
+          onChange={(e) => setPractice(e.target.value)}
         />
       </label>
       <button className="mt-4 border border-gray-300 p-2 rounded-md shadow-sm cursor-pointer duration-300 hover:bg-gray-200 active:translate-y-0.5">
