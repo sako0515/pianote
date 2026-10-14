@@ -12,7 +12,7 @@ export default function PianoArea({
   progress,
 }: PianoAreaProps) {
   return (
-    <div className="bg-[#1c493f] rounded-2xl px-6 py-4 w-full max-w-2xl mx-auto mt-6">
+    <div className="bg-forest rounded-2xl px-6 py-4 w-full max-w-2xl mx-auto mt-6">
       <p className="text-sm text-gray-500">MY PIANO</p>
       <h1 className="text-white font-bold text-4xl mt-4">Lv .{level}</h1>
       <p className="text-white font-bold mt-2">響きのピアノ</p>
@@ -33,7 +33,7 @@ export default function PianoArea({
         </div>
         <div className="mt-2 h-3 w-full overflow-hidden rounded-full bg-white/20">
           <div
-            className="h-full rounded-full bg-[#a9c69a] transition-all duration-500"
+            className="h-full rounded-full bg-sage transition-all duration-500"
             style={{ width: `${progress}%` }}
           />
         </div>
