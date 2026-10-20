@@ -16,16 +16,25 @@ https://pianote-peach.vercel.app/
 
 現在実装している機能
 
-- 練習記録の追加
-  - 曲名
-  - 作曲家
-  - 練習時間
-- 今日の練習記録の一覧表示
-- 練習記録の削除（確認ダイアログ付き）
-- 今日の合計練習時間・獲得経験値の表示
-- ピアノのステータス表示（レベル・次のレベルまでの進捗）
-  - 練習1分 = 1 EXP、100 EXPごとにレベルアップ
-- localStorageへの練習記録の保存・復元
+- **練習記録の追加**
+  - 「記録する」ボタンから開くモーダルで入力
+  - 曲名・一言コメント（任意・50文字まで）・練習時間
+- **今日の練習ノート**
+  - 今日の練習記録の一覧表示
+  - 練習記録の削除（確認ダイアログ付き）
+  - 今日の獲得経験値・合計練習時間の表示
+- **マイピアノ**
+  - レベルとレベルに応じた称号（はじまりのピアノ → 芽吹きのピアノ → 響きのピアノ → 歌うピアノ）
+  - 次のレベルまでの進捗（練習1分 = 1 EXP、100 EXPごとにレベルアップ）
+- **成長の記録**
+  - 直近7日間の練習時間を棒グラフで表示
+  - 最近の練習履歴（新しい順に5件）
+  - これまでの合計練習時間
+- **連続練習日数**の表示（サイドバー）
+- **レスポンシブ対応**
+  - PCではサイドバー + 2カラム、スマホでは1カラムで表示
+- **データの保存**
+  - localStorageへの保存・復元
   - 読み込み時にZodでデータを検証し、不正なデータはバックアップして退避
 
 ## 🛠️ Tech Stack
@@ -36,6 +45,7 @@ https://pianote-peach.vercel.app/
 - Tailwind CSS
 - Zod
 - Vitest
+- lucide-react
 - localStorage
 - Git / GitHub
 - Vercel
@@ -45,22 +55,34 @@ https://pianote-peach.vercel.app/
 ```text
 src/
 ├── components/
-│   ├── Card.tsx            # カードの共通レイアウト
-│   ├── Header.tsx          # あいさつ・日付・通知ボタン
-│   ├── PianoArea.tsx       # ピアノのレベル・進捗表示
-│   ├── PianoForm.tsx       # 練習記録の入力フォーム
-│   └── TodaySession.tsx    # 今日の練習一覧・合計
+│   ├── layout/
+│   │   ├── Sidebar.tsx            # ロゴ・ナビ・連続日数・ユーザー情報
+│   │   ├── NavItem.tsx            # ナビゲーションの項目
+│   │   ├── StreakCard.tsx         # 連続練習日数
+│   │   └── UserProfile.tsx        # ユーザー情報
+│   ├── today/
+│   │   ├── TodaySession.tsx       # 今日の練習ノート
+│   │   ├── SessionItem.tsx        # 練習記録の1行
+│   │   └── SessionSummary.tsx     # 今日の獲得経験値・合計時間
+│   ├── growth/
+│   │   ├── GrowthLog.tsx          # 成長の記録
+│   │   ├── WeeklyChart.tsx        # 直近7日間の棒グラフ
+│   │   └── HistoryList.tsx        # 練習履歴の一覧
+│   ├── Card.tsx                   # カードの共通レイアウト
+│   ├── Header.tsx                 # あいさつ・日付・通知ボタン
+│   ├── PianoArea.tsx              # レベル・称号・進捗表示
+│   └── PracticeFormModal.tsx      # 練習記録の入力モーダル
 ├── hooks/
-│   └── usePracticeLogs.ts  # 練習記録の状態管理とlocalStorage保存
+│   └── usePracticeLogs.ts         # 練習記録の状態管理とlocalStorage保存
 ├── lib/
-│   ├── date.ts             # 日付の変換
-│   ├── exp.ts              # 経験値・レベルの計算
-│   └── *.test.ts           # 上記のテスト
+│   ├── date.ts                    # 日付の変換・表示形式
+│   ├── exp.ts                     # 経験値・レベル・称号の計算
+│   ├── stats.ts                   # 日別の練習時間・連続日数の集計
+│   └── *.test.ts                  # 上記のテスト
 ├── schemas/
-│   └── practice.ts         # 練習記録のZodスキーマと型
-├── App.tsx
-├── App.css
-├── index.css
+│   └── practice.ts                # 練習記録のZodスキーマと型
+├── App.tsx                        # 全体のレイアウト
+├── App.css                        # Tailwindの読み込みとテーマ（色・フォント）
 └── main.tsx
 ```
 
@@ -78,3 +100,9 @@ npm run dev
 | `npm run lint`    | ESLintを実行           |
 | `npm run test`    | Vitestでテストを実行   |
 | `npm run preview` | ビルド結果をプレビュー |
+
+## 📝 今後の予定
+
+- ユーザー名の設定（現在は仮の名前を表示）
+- ナビゲーションごとのページ分け
+- 「庭」の成長要素の追加
