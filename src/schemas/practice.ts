@@ -3,7 +3,11 @@ import * as z from "zod";
 export const practiceLogSchema = z.object({
   id: z.string(),
   title: z.string().trim().min(1, "曲名を入力してください"),
-  author: z.string().trim().min(1, "作曲家を入力してください"),
+  memo: z
+    .string()
+    .trim()
+    .max(50, "コメントは50文字以内にしてください")
+    .default(""),
   practice: z
     .number("練習時間を数値で入力してください")
     .int("練習時間は整数で入力してください")
@@ -16,4 +20,10 @@ export const practiceLogSchema = z.object({
 
 export const practiceLogsSchema = z.array(practiceLogSchema);
 
+export const practiceInputSchema = practiceLogSchema.omit({
+  id: true,
+  date: true,
+});
+
 export type PracticeLog = z.infer<typeof practiceLogSchema>;
+export type PracticeInput = z.infer<typeof practiceInputSchema>;
