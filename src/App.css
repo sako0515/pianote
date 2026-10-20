@@ -2,8 +2,16 @@
 
 @theme {
   --color-cream: #f4f1e8;
+  --color-paper: #faf9f4;
+  --color-sand: #edefe6;
+  --color-ink: #1f3a33;
   --color-forest: #1c493f;
   --color-sage: #a9c69a;
+  --color-moss: #5f7f6a;
+  --color-terracotta: #c9774f;
+  --color-peach: #f8e9df;
+
+  --font-serif: "Playfair Display", ui-serif, Georgia, serif;
 }
 
 /* .counter {
