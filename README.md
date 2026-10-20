@@ -8,7 +8,7 @@
 現在は、React / TypeScriptを使ったフロントエンド開発を中心に、
 基本的な状態管理やデータ保存の仕組みを学びながら開発しています。
 
-# Demo
+## 🔗 Demo
 
 https://pianote-peach.vercel.app/
 
@@ -20,11 +20,13 @@ https://pianote-peach.vercel.app/
   - 曲名
   - 作曲家
   - 練習時間
-- 練習記録の一覧表示
-- 練習記録の削除
-- localStorageへの練習記録の保存
-- ページを再読み込みした際の練習記録の復元
-- ピアノのステータス表示
+- 今日の練習記録の一覧表示
+- 練習記録の削除（確認ダイアログ付き）
+- 今日の合計練習時間・獲得経験値の表示
+- ピアノのステータス表示（レベル・次のレベルまでの進捗）
+  - 練習1分 = 1 EXP、100 EXPごとにレベルアップ
+- localStorageへの練習記録の保存・復元
+  - 読み込み時にZodでデータを検証し、不正なデータはバックアップして退避
 
 ## 🛠️ Tech Stack
 
@@ -32,6 +34,8 @@ https://pianote-peach.vercel.app/
 - TypeScript
 - Vite
 - Tailwind CSS
+- Zod
+- Vitest
 - localStorage
 - Git / GitHub
 - Vercel
@@ -41,87 +45,36 @@ https://pianote-peach.vercel.app/
 ```text
 src/
 ├── components/
-│   ├── PianoArea.tsx
-│   └── PianoForm.tsx
+│   ├── Card.tsx            # カードの共通レイアウト
+│   ├── Header.tsx          # あいさつ・日付・通知ボタン
+│   ├── PianoArea.tsx       # ピアノのレベル・進捗表示
+│   ├── PianoForm.tsx       # 練習記録の入力フォーム
+│   └── TodaySession.tsx    # 今日の練習一覧・合計
+├── hooks/
+│   └── usePracticeLogs.ts  # 練習記録の状態管理とlocalStorage保存
+├── lib/
+│   ├── date.ts             # 日付の変換
+│   ├── exp.ts              # 経験値・レベルの計算
+│   └── *.test.ts           # 上記のテスト
+├── schemas/
+│   └── practice.ts         # 練習記録のZodスキーマと型
 ├── App.tsx
 ├── App.css
+├── index.css
 └── main.tsx
-
-# React + TypeScript + Vite
-
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
-
-Currently, two official plugins are available:
-
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
-
-## React Compiler
-
-The React Compiler is enabled on this template. See [this documentation](https://react.dev/learn/react-compiler) for more information.
-
-Note: This will impact Vite dev & build performances.
-You can also try [the experimental native React Compiler support in plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md#rust-react-compiler) by using `compiler: true` in the plugin options instead of using the Babel plugin.
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+## 🚀 Getting Started
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```bash
+npm install
+npm run dev
 ```
+
+| コマンド          | 内容                   |
+| ----------------- | ---------------------- |
+| `npm run dev`     | 開発サーバーを起動     |
+| `npm run build`   | 型チェックとビルド     |
+| `npm run lint`    | ESLintを実行           |
+| `npm run test`    | Vitestでテストを実行   |
+| `npm run preview` | ビルド結果をプレビュー |
