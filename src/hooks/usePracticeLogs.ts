@@ -1,5 +1,9 @@
 import { useEffect, useState } from "react";
-import { practiceLogsSchema, type PracticeLog } from "../schemas/practice";
+import {
+  practiceLogsSchema,
+  type PracticeInput,
+  type PracticeLog,
+} from "../schemas/practice";
 import { toDateString } from "../lib/date";
 
 const STORAGE_KEY = "logs";
@@ -11,9 +15,11 @@ const loadLogs = (): PracticeLog[] => {
   try {
     const result = practiceLogsSchema.safeParse(JSON.parse(raw));
     if (result.success) return result.data;
-  } catch {}
+  } catch {
+    // JSONとして壊れている場合は、下でバックアップしてから空にする
+  }
 
-  localStorage.setItem(`{STORAGE_KEY}_backup`, raw);
+  localStorage.setItem(`${STORAGE_KEY}_backup`, raw);
   return [];
 };
 
@@ -24,7 +30,7 @@ export const usePracticeLogs = () => {
     localStorage.setItem(STORAGE_KEY, JSON.stringify(logs));
   }, [logs]);
 
-  const addLog = (input: Omit<PracticeLog, "id" | "date">) => {
+  const addLog = (input: PracticeInput) => {
     setLogs((prev) => [
       ...prev,
       { ...input, id: crypto.randomUUID(), date: toDateString() },
