@@ -29,13 +29,3 @@ export const formatMonthDay = (dateStr: string): string => {
 
 export const weekdayLabel = (dateStr: string): string =>
   WEEKDAYS[parseDateString(dateStr).getDay()];
-
-// "2026-05-21" → "THURSDAY, MAY 21"
-export const formatEnglishDate = (dateStr: string): string =>
-  parseDateString(dateStr)
-    .toLocaleDateString("en-US", {
-      weekday: "long",
-      month: "long",
-      day: "numeric",
-    })
-    .toUpperCase();
