@@ -1,7 +1,10 @@
+import { ArrowRight } from "lucide-react";
+import { Link } from "react-router";
 import type { PracticeLog } from "../../schemas/practice";
+import { sortByNewest } from "../../lib/stats";
 import Card, { CardHeading } from "../Card";
 import HistoryList from "./HistoryList";
-import WeeklyChart from "./WeeklyChart";
+import PracticeChart from "./PracticeChart";
 
 const HISTORY_LIMIT = 5;
 
@@ -12,21 +15,15 @@ type GrowthLogProps = {
   today: string;
 };
 
+// マイピアノに出す成長の記録の要約。詳しくは /growth で見る
 export default function GrowthLog({
   logs,
   weeklyMinutes,
   totalMinutes,
   today,
 }: GrowthLogProps) {
-  // 新しい日付順。同じ日の中では後から追加したものを上にする
-  const recentLogs = logs
-    .map((log, index) => ({ log, index }))
-    .sort((a, b) => b.log.date.localeCompare(a.log.date) || b.index - a.index)
-    .slice(0, HISTORY_LIMIT)
-    .map(({ log }) => log);
-
   return (
-    <Card id="growth">
+    <Card>
       <div className="mb-8 flex items-start justify-between">
         <CardHeading eyebrow="GROWTH LOG" title="成長の記録" />
         <div className="text-right">
@@ -35,8 +32,17 @@ export default function GrowthLog({
         </div>
       </div>
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
-        <WeeklyChart days={weeklyMinutes} today={today} />
-        <HistoryList logs={recentLogs} />
+        <PracticeChart days={weeklyMinutes} today={today} />
+        <div>
+          <HistoryList logs={sortByNewest(logs).slice(0, HISTORY_LIMIT)} />
+          <Link
+            to="/growth"
+            className="mt-4 flex items-center justify-end gap-1 text-xs font-semibold text-moss hover:text-ink"
+          >
+            すべて見る
+            <ArrowRight className="size-3.5" />
+          </Link>
+        </div>
       </div>
     </Card>
   );
