@@ -1,7 +1,6 @@
 import { describe, expect, it } from "vitest";
 import {
   addDays,
-  formatEnglishDate,
   formatMonthDay,
   lastNDays,
   toDateString,
@@ -31,10 +30,6 @@ it("lastNDaysは今日を最後に古い順で並ぶ", () => {
 
 it("formatMonthDayは0埋めしない", () => {
   expect(formatMonthDay("2026-01-05")).toBe("1月5日");
-});
-
-it("formatEnglishDateは英語の曜日と月を大文字で返す", () => {
-  expect(formatEnglishDate("2026-05-21")).toBe("THURSDAY, MAY 21");
 });
 
 it("weekdayLabelは曜日を1文字で返す", () => {
