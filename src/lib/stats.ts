@@ -25,3 +25,27 @@ export const calcStreak = (logs: { date: string }[], today: string): number => {
   }
   return streak;
 };
+
+// 新しい日付順。同じ日の中では後から追加したものを上にする
+export const sortByNewest = <T extends { date: string }>(logs: T[]): T[] =>
+  logs
+    .map((log, index) => ({ log, index }))
+    .sort((a, b) => b.log.date.localeCompare(a.log.date) || b.index - a.index)
+    .map(({ log }) => log);
+
+export const groupByDate = <T extends DatedLog>(
+  logs: T[],
+): { date: string; logs: T[]; totalMinutes: number }[] => {
+  const groups = new Map<string, T[]>();
+  for (const log of sortByNewest(logs)) {
+    groups.set(log.date, [...(groups.get(log.date) ?? []), log]);
+  }
+  return [...groups].map(([date, logs]) => ({
+    date,
+    logs,
+    totalMinutes: logs.reduce((total, log) => total + log.practice, 0),
+  }));
+};
+
+export const practiceDays = (logs: { date: string }[]): number =>
+  new Set(logs.map((log) => log.date)).size;
