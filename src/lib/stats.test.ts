@@ -1,5 +1,11 @@
 import { describe, expect, it } from "vitest";
-import { calcStreak, dailyMinutes } from "./stats";
+import {
+  calcStreak,
+  dailyMinutes,
+  groupByDate,
+  practiceDays,
+  sortByNewest,
+} from "./stats";
 
 it("dailyMinutesは日付ごとに合計し、記録のない日は0になる", () => {
   const logs = [
@@ -37,4 +43,34 @@ describe("calcStreak", () => {
   it("昨日も今日も練習していなければ0", () => {
     expect(calcStreak([{ date: "2026-10-11" }], "2026-10-14")).toBe(0);
   });
+});
+
+it("sortByNewestは新しい日付順で、同じ日は後から追加したものが上になる", () => {
+  const logs = [
+    { id: "a", date: "2026-10-13" },
+    { id: "b", date: "2026-10-14" },
+    { id: "c", date: "2026-10-13" },
+  ];
+  expect(sortByNewest(logs).map((log) => log.id)).toEqual(["b", "c", "a"]);
+});
+
+it("groupByDateは日付ごとにまとめ、合計時間を出す", () => {
+  const logs = [
+    { id: "a", date: "2026-10-13", practice: 20 },
+    { id: "b", date: "2026-10-14", practice: 30 },
+    { id: "c", date: "2026-10-13", practice: 25 },
+  ];
+  expect(groupByDate(logs)).toEqual([
+    { date: "2026-10-14", logs: [logs[1]], totalMinutes: 30 },
+    { date: "2026-10-13", logs: [logs[2], logs[0]], totalMinutes: 45 },
+  ]);
+});
+
+it("practiceDaysは練習した日数を数える", () => {
+  const logs = [
+    { date: "2026-10-13" },
+    { date: "2026-10-13" },
+    { date: "2026-10-14" },
+  ];
+  expect(practiceDays(logs)).toBe(2);
 });
