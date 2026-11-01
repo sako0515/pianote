@@ -22,8 +22,8 @@ export default function NavItem({
       // 閉じているときはラベルが見えないので、ホバーで名前を出す
       title={collapsed ? label : undefined}
       className={({ isActive }) =>
-        `flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-semibold duration-200 ${
-          isActive ? "bg-sand text-ink" : "text-ink/60 hover:bg-sand/60"
+        `flex items-center gap-3 rounded-lg px-4 py-3 text-sm font-medium duration-200 ${
+          isActive ? "bg-subtle text-fg" : "text-muted hover:bg-subtle"
         }`
       }
     >

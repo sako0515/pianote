@@ -10,66 +10,61 @@ export default function PianoArea({
   progress,
 }: LevelInfo) {
   return (
-    <section
-      id="my-piano"
-      className="relative flex scroll-mt-6 flex-col overflow-hidden rounded-3xl bg-forest px-8 py-10 text-white shadow-sm"
-    >
-      {/* 背景の装飾 */}
-      <div className="pointer-events-none absolute -top-24 -right-24 size-72 rounded-full border border-white/10" />
+    <section className="flex flex-col overflow-hidden rounded-lg border border-line bg-surface">
+      <h2 className="bg-brand px-6 py-4 text-lg font-medium text-white">
+        マイピアノ
+      </h2>
 
-      <p className="text-[10px] font-semibold tracking-[0.2em] text-white/60">
-        MY PIANO
-      </p>
-      <h2 className="mt-6 font-serif text-5xl font-semibold">Lv. {level}</h2>
-      <p className="mt-3 text-sm text-white/70">{levelTitle(level)}</p>
+      <div className="flex flex-1 flex-col p-6">
+        <p className="text-4xl font-medium text-fg">Lv. {level}</p>
+        <p className="mt-2 text-sm text-muted">{levelTitle(level)}</p>
 
-      <div className="relative mx-auto my-6 flex size-64 items-center justify-center">
-        <div className="absolute inset-0 rounded-full border border-dashed border-white/10" />
-        <div className="absolute inset-6 rounded-full border border-white/10 bg-white/3" />
-        <div className="relative flex size-40 items-center justify-center rounded-full bg-linear-to-br from-[#4f7a6c] to-[#24564a] shadow-2xl ring-1 ring-white/15">
-          <svg viewBox="0 0 70 42" className="w-24" aria-hidden>
-            {WHITE_KEYS.map((i) => (
-              <rect
-                key={i}
-                x={i * 10}
-                y="0"
-                width="9.2"
-                height="42"
-                rx="1.5"
-                fill="#fbfaf5"
-              />
-            ))}
-            {BLACK_KEYS.map((i) => (
-              <rect
-                key={i}
-                x={i * 10 + 6.6}
-                y="0"
-                width="5.6"
-                height="25"
-                rx="1"
-                fill="#1c493f"
-              />
-            ))}
-          </svg>
-        </div>
-      </div>
+        <svg
+          viewBox="0 0 70 42"
+          className="mx-auto my-8 w-full max-w-56"
+          aria-hidden
+        >
+          {WHITE_KEYS.map((i) => (
+            <rect
+              key={i}
+              x={i * 10}
+              y="0"
+              width="9.2"
+              height="42"
+              rx="1"
+              fill="#e8eaed"
+            />
+          ))}
+          {BLACK_KEYS.map((i) => (
+            <rect
+              key={i}
+              x={i * 10 + 6.6}
+              y="0"
+              width="5.6"
+              height="25"
+              rx="0.5"
+              fill="#1f1f1f"
+            />
+          ))}
+        </svg>
 
-      <div className="mt-auto">
-        <div className="flex items-end justify-between">
-          <span className="text-sm font-bold">次のレベルまで</span>
-          <span className="font-serif text-xl text-[#e7a27d]">
-            {Math.floor(progress)}%
-          </span>
-        </div>
-        <div className="mt-3 h-1.5 w-full overflow-hidden rounded-full bg-white/15">
-          <div
-            className="h-full rounded-full bg-terracotta transition-all duration-500"
-            style={{ width: `${progress}%` }}
-          />
-        </div>
-        <div className="mt-3 flex justify-between text-[10px] text-white/60">
-          <span>{totalExp} EXP</span>
-          <span>次まで {remainingExp} EXP</span>
+        <div className="mt-auto">
+          <div className="flex items-baseline justify-between text-sm">
+            <span className="text-fg">次のレベルまで</span>
+            <span className="font-medium text-accent">
+              {Math.floor(progress)}%
+            </span>
+          </div>
+          <div className="mt-2 h-1 w-full overflow-hidden rounded-full bg-line">
+            <div
+              className="h-full rounded-full bg-accent transition-all duration-500"
+              style={{ width: `${progress}%` }}
+            />
+          </div>
+          <div className="mt-2 flex justify-between text-xs text-muted">
+            <span>{totalExp} EXP</span>
+            <span>次まで {remainingExp} EXP</span>
+          </div>
         </div>
       </div>
     </section>

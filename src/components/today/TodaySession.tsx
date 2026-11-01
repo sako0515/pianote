@@ -19,18 +19,18 @@ export default function TodaySession({
 }: TodaySessionProps) {
   return (
     <Card id="today">
-      <div className="flex items-start justify-between border-b border-black/5 pb-6">
-        <CardHeading eyebrow="TODAY'S SESSION" title="今日の練習ノート" />
+      <div className="flex items-start justify-between border-b border-line pb-6">
+        <CardHeading title="今日の練習ノート" />
         <button
           onClick={onAdd}
-          className="flex cursor-pointer items-center gap-1.5 rounded-lg border border-black/10 px-3.5 py-2 text-xs font-semibold text-ink duration-200 hover:bg-sand active:translate-y-0.5"
+          className="flex cursor-pointer items-center gap-1.5 rounded-lg border border-line px-3.5 py-2 text-xs font-medium text-fg duration-200 hover:bg-subtle active:translate-y-0.5"
         >
           <Plus className="size-3.5" />
           記録する
         </button>
       </div>
       {logs.length === 0 ? (
-        <p className="py-10 text-center text-sm text-ink/50">
+        <p className="py-10 text-center text-sm text-muted">
           まだ今日の記録はありません
         </p>
       ) : (

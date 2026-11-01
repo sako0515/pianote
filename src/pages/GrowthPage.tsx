@@ -49,12 +49,12 @@ export default function GrowthPage() {
         {stats.map(({ label, value, unit }) => (
           <div
             key={label}
-            className="rounded-2xl border border-black/5 bg-paper px-5 py-4 shadow-sm"
+            className="rounded-lg border border-line bg-surface px-5 py-4"
           >
-            <p className="text-[10px] text-ink/50">{label}</p>
-            <p className="mt-1 font-serif text-2xl text-ink">
+            <p className="text-xs text-muted">{label}</p>
+            <p className="mt-1 text-2xl text-fg">
               {value}
-              <span className="ml-1 font-sans text-xs text-ink/50">{unit}</span>
+              <span className="ml-1 text-xs text-muted">{unit}</span>
             </p>
           </div>
         ))}
@@ -62,8 +62,8 @@ export default function GrowthPage() {
 
       <Card>
         <div className="mb-6 flex items-start justify-between gap-4">
-          <CardHeading eyebrow="GROWTH LOG" title="練習時間の推移" />
-          <div className="flex rounded-lg bg-sand p-1" role="group">
+          <CardHeading title="練習時間の推移" />
+          <div className="flex rounded-lg bg-subtle p-1" role="group">
             {(Object.keys(RANGES) as Range[]).map((key) => (
               <button
                 key={key}
@@ -74,10 +74,10 @@ export default function GrowthPage() {
                     { replace: true, preventScrollReset: true },
                   )
                 }
-                className={`cursor-pointer rounded-md px-3 py-1.5 text-xs font-semibold duration-200 ${
+                className={`cursor-pointer rounded-md px-3 py-1.5 text-xs font-medium duration-200 ${
                   range === key
-                    ? "bg-paper text-ink shadow-sm"
-                    : "text-ink/50 hover:text-ink"
+                    ? "bg-surface text-fg"
+                    : "text-muted hover:text-fg"
                 }`}
               >
                 {RANGES[key].label}
@@ -93,7 +93,7 @@ export default function GrowthPage() {
 
       <Card>
         <div className="mb-6">
-          <CardHeading eyebrow="HISTORY" title="練習の履歴" />
+          <CardHeading title="練習の履歴" />
         </div>
         <HistoryList logs={sortByNewest(logs)} />
       </Card>

@@ -9,7 +9,7 @@ type PracticeFormModalProps = {
 };
 
 const inputClass =
-  "mt-1.5 block w-full rounded-xl border border-black/10 bg-white px-4 py-3 text-ink outline-none focus:border-moss";
+  "mt-1.5 block w-full rounded-lg border border-line bg-subtle px-4 py-3 text-fg outline-none focus:border-accent";
 
 export default function PracticeFormModal({
   open,
@@ -58,29 +58,25 @@ export default function PracticeFormModal({
         // 背景（dialog自身）をクリックしたら閉じる
         if (e.target === e.currentTarget) onClose();
       }}
-      className="m-auto w-[calc(100%-2rem)] max-w-md rounded-3xl bg-paper p-0 shadow-xl backdrop:bg-ink/40"
+      className="m-auto w-[calc(100%-2rem)] max-w-md rounded-lg bg-surface p-0 backdrop:bg-black/60"
     >
       <form className="flex flex-col gap-5 p-8" onSubmit={handleSubmit}>
         <div className="flex items-start justify-between">
-          <div>
-            <p className="text-[10px] font-semibold tracking-[0.2em] text-moss">
-              NEW RECORD
-            </p>
-            <h2 className="mt-2 text-xl font-bold text-ink">練習を記録する</h2>
-          </div>
+          <h2 className="text-lg font-medium text-fg">練習を記録する</h2>
           <button
             type="button"
             aria-label="閉じる"
             onClick={onClose}
-            className="cursor-pointer rounded-full p-2 text-ink/40 hover:bg-sand hover:text-ink"
+            className="cursor-pointer rounded-full p-2 text-muted hover:bg-subtle hover:text-fg"
           >
             <X className="size-4" />
           </button>
         </div>
 
         <label className="block">
-          <span className="text-xs font-semibold text-ink/60">曲名</span>
+          <span className="text-xs font-medium text-muted">曲名</span>
           <input
+            autoFocus
             type="text"
             className={inputClass}
             value={title}
@@ -89,7 +85,7 @@ export default function PracticeFormModal({
         </label>
 
         <label className="block">
-          <span className="text-xs font-semibold text-ink/60">
+          <span className="text-xs font-medium text-muted">
             一言コメント（任意）
           </span>
           <input
@@ -100,14 +96,14 @@ export default function PracticeFormModal({
             onChange={(e) => setMemo(e.target.value)}
           />
           {memoError && (
-            <span className="mt-1 block text-xs text-terracotta">
+            <span className="mt-1 block text-xs text-accent">
               コメントは50文字以内にしてください
             </span>
           )}
         </label>
 
         <label className="block">
-          <span className="text-xs font-semibold text-ink/60">
+          <span className="text-xs font-medium text-muted">
             練習時間（分）
           </span>
           <input
@@ -122,7 +118,7 @@ export default function PracticeFormModal({
         <button
           type="submit"
           disabled={!result.success}
-          className="mt-2 cursor-pointer rounded-xl bg-terracotta py-3 font-bold text-white duration-200 enabled:hover:opacity-90 enabled:active:translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-40"
+          className="mt-2 cursor-pointer rounded-lg bg-accent py-3 font-medium text-page duration-200 enabled:hover:opacity-90 enabled:active:translate-y-0.5 disabled:cursor-not-allowed disabled:opacity-40"
         >
           記録する
         </button>

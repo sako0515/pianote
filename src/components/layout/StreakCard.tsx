@@ -13,9 +13,9 @@ export default function StreakCard({ streak, collapsed }: StreakCardProps) {
   return (
     <div
       title={collapsed ? `${streak}日練習` : undefined}
-      className="flex items-center gap-4 overflow-hidden rounded-2xl border border-terracotta/20 bg-peach px-4 py-6"
+      className="flex items-center gap-4 overflow-hidden rounded-lg border border-line bg-accent-soft px-4 py-6"
     >
-      <span className="w-5 shrink-0 text-center font-serif text-3xl text-terracotta">
+      <span className="w-5 shrink-0 text-center text-3xl text-accent">
         {streak}
       </span>
       <div
@@ -23,8 +23,8 @@ export default function StreakCard({ streak, collapsed }: StreakCardProps) {
           collapsed ? "opacity-0" : "opacity-100"
         }`}
       >
-        <p className="text-sm font-bold text-ink">日練習</p>
-        <p className="mt-1 text-[11px] text-ink/50">{streakMessage(streak)}</p>
+        <p className="text-sm font-medium text-fg">日練習</p>
+        <p className="mt-1 text-xs text-muted">{streakMessage(streak)}</p>
       </div>
     </div>
   );

@@ -25,10 +25,10 @@ export default function GrowthLog({
   return (
     <Card>
       <div className="mb-8 flex items-start justify-between">
-        <CardHeading eyebrow="GROWTH LOG" title="成長の記録" />
+        <CardHeading title="成長の記録" />
         <div className="text-right">
-          <p className="text-[10px] text-ink/50">これまでの練習</p>
-          <p className="mt-1 font-serif text-xl text-ink">{totalMinutes}分</p>
+          <p className="text-xs text-muted">これまでの練習</p>
+          <p className="mt-1 text-xl text-fg">{totalMinutes}分</p>
         </div>
       </div>
       <div className="grid grid-cols-1 gap-8 lg:grid-cols-2">
@@ -37,7 +37,7 @@ export default function GrowthLog({
           <HistoryList logs={sortByNewest(logs).slice(0, HISTORY_LIMIT)} />
           <Link
             to="/growth"
-            className="mt-4 flex items-center justify-end gap-1 text-xs font-semibold text-moss hover:text-ink"
+            className="mt-4 flex items-center justify-end gap-1 text-xs font-medium text-muted hover:text-fg"
           >
             すべて見る
             <ArrowRight className="size-3.5" />

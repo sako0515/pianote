@@ -19,20 +19,20 @@ export default function DailyNoteGroup({
 }: DailyNoteGroupProps) {
   return (
     <section className="mt-8 first:mt-0">
-      <div className="flex items-baseline justify-between border-b border-black/10 pb-3">
-        <h3 className="font-bold text-ink">
-          <span className="font-serif">{formatMonthDay(date)}</span>
-          <span className="ml-1 text-sm text-ink/50">
+      <div className="flex items-baseline justify-between border-b border-line pb-3">
+        <h3 className="font-medium text-fg">
+          <span>{formatMonthDay(date)}</span>
+          <span className="ml-1 text-sm text-muted">
             （{weekdayLabel(date)}）
           </span>
           {isToday && (
-            <span className="ml-2 rounded-full bg-peach px-2 py-0.5 text-[10px] text-terracotta">
+            <span className="ml-2 rounded-full bg-accent-soft px-2 py-0.5 text-xs text-accent">
               今日
             </span>
           )}
         </h3>
-        <p className="text-xs text-ink/50">
-          合計 <span className="font-serif text-base text-ink">{totalMinutes}</span>{" "}
+        <p className="text-xs text-muted">
+          合計 <span className="text-base text-fg">{totalMinutes}</span>{" "}
           分
         </p>
       </div>

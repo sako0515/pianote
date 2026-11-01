@@ -10,13 +10,13 @@ export default function ErrorPage() {
       : "不明なエラー";
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-cream px-4">
-      <div className="w-full max-w-md rounded-3xl bg-paper p-10 text-center shadow-sm">
-        <p className="font-bold text-ink">エラーが発生しました</p>
-        <p className="mt-3 text-sm break-words text-ink/50">{message}</p>
+    <div className="flex min-h-screen items-center justify-center bg-page px-4">
+      <div className="w-full max-w-md rounded-lg bg-surface p-10 text-center">
+        <p className="font-medium text-fg">エラーが発生しました</p>
+        <p className="mt-3 text-sm break-words text-muted">{message}</p>
         <a
           href="/"
-          className="mt-6 inline-block rounded-xl bg-forest px-5 py-2.5 text-sm font-semibold text-white hover:opacity-90"
+          className="mt-6 inline-block rounded-lg bg-brand px-5 py-2.5 text-sm font-medium text-white hover:opacity-90"
         >
           トップへ戻る
         </a>

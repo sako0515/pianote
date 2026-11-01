@@ -10,7 +10,7 @@ export default function RootLayout() {
   const { logs } = usePracticeLogsContext();
 
   return (
-    <div className="flex min-h-screen bg-cream">
+    <div className="flex min-h-screen bg-page">
       <Sidebar streak={calcStreak(logs, toDateString())} />
       <main className="min-w-0 flex-1 px-4 pt-6 pb-24 md:px-6 md:py-8 lg:px-12">
         <div className="mx-auto max-w-6xl">

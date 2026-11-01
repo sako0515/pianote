@@ -20,7 +20,7 @@ export default function PracticeChart({ days, today }: PracticeChartProps) {
 
   return (
     <div
-      className={`flex h-56 items-stretch justify-between rounded-2xl bg-sand pt-5 pb-3 ${
+      className={`flex h-56 items-stretch justify-between rounded-lg bg-subtle pt-5 pb-3 ${
         isWeekly ? "gap-3 px-6" : "gap-0.5 px-3 md:gap-1 md:px-5"
       }`}
     >
@@ -32,22 +32,22 @@ export default function PracticeChart({ days, today }: PracticeChartProps) {
             title={`${formatMonthDay(date)} ${minutes}分`}
             className="flex min-w-0 flex-1 flex-col items-center gap-2"
           >
-            <span className="h-3 text-[9px] text-ink/50">
+            <span className="h-3 text-xs text-muted">
               {isWeekly && minutes > 0 ? minutes : ""}
             </span>
             <div
-              className={`relative flex-1 overflow-hidden rounded-full bg-black/5 ${
+              className={`relative flex-1 overflow-hidden rounded-full bg-line ${
                 isWeekly ? "w-4" : "w-full max-w-2.5"
               }`}
             >
               <div
-                className="absolute inset-x-0 bottom-0 rounded-full bg-linear-to-t from-terracotta to-[#e5a587] transition-all duration-500"
+                className="absolute inset-x-0 bottom-0 rounded-full bg-accent transition-all duration-500"
                 style={{ height: `${(minutes / max) * 100}%` }}
               />
             </div>
             <span
-              className={`h-3 text-[10px] whitespace-nowrap ${
-                isToday ? "font-bold text-terracotta" : "text-ink/50"
+              className={`h-3 text-xs whitespace-nowrap ${
+                isToday ? "font-medium text-accent" : "text-muted"
               }`}
             >
               {labelFor(date)}
